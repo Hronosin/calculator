@@ -1,0 +1,53 @@
+{
+  "app.title": "Engineering Calculator",
+  "app.subtitle": "v2 · modular architecture",
+
+  "tab.calc": "Calculator",
+  "tab.symbolic": "Symbolic",
+  "tab.plot": "Plot",
+  "tab.formulas": "Formulas",
+  "tab.units": "Units",
+  "tab.repl": "REPL",
+  "tab.plugins": "Plugins",
+
+  "btn.equals": "=",
+  "btn.clear": "C",
+  "btn.delete": "⌫",
+  "btn.memory.clear": "MC",
+  "btn.memory.recall": "MR",
+  "btn.memory.plus": "M+",
+  "btn.memory.minus": "M−",
+
+  "history.title": "History",
+  "history.empty": "Empty. Type an expression and press =",
+  "history.clear": "Clear",
+
+  "palette.placeholder": "Search formulas, converters, actions…",
+  "palette.empty": "No results",
+  "palette.hint": "↑↓ — navigate · Enter — open · Esc — close",
+
+  "symbolic.title": "Symbolic computation",
+  "symbolic.derivative": "Derivative",
+  "symbolic.integral": "Integral",
+  "symbolic.simplify": "Simplify",
+  "symbolic.factor": "Factor",
+  "symbolic.solve": "Solve equation",
+  "symbolic.input": "Enter expression, e.g. sin(x)^2 + cos(x)^2",
+  "symbolic.variable": "Variable",
+
+  "plot.title": "Plot",
+  "plot.expression": "Expression",
+  "plot.params": "Parameters",
+  "plot.x_range": "X range",
+  "plot.add_param": "+ Parameter",
+
+  "repl.title": "REPL",
+  "repl.help": "Available: evaluate, history, memory, ans · Enter — run",
+
+  "export.markdown": "Markdown",
+  "export.pdf": "PDF",
+
+  "theme.dark": "Dark",
+  "theme.light": "Light",
+  "lang.label": "Language"
+}

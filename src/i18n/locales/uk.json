@@ -1,0 +1,53 @@
+{
+  "app.title": "Інженерний калькулятор",
+  "app.subtitle": "v2 · модульна архітектура",
+
+  "tab.calc": "Калькулятор",
+  "tab.symbolic": "Символьні",
+  "tab.plot": "Графіки",
+  "tab.formulas": "Формули",
+  "tab.units": "Одиниці",
+  "tab.repl": "REPL",
+  "tab.plugins": "Плагіни",
+
+  "btn.equals": "=",
+  "btn.clear": "C",
+  "btn.delete": "⌫",
+  "btn.memory.clear": "MC",
+  "btn.memory.recall": "MR",
+  "btn.memory.plus": "M+",
+  "btn.memory.minus": "M−",
+
+  "history.title": "Історія",
+  "history.empty": "Поки порожньо. Введи вираз і натисни =",
+  "history.clear": "Очистити",
+
+  "palette.placeholder": "Пошук формул, конвертерів, дій…",
+  "palette.empty": "Нічого не знайдено",
+  "palette.hint": "↑↓ — вибір · Enter — відкрити · Esc — закрити",
+
+  "symbolic.title": "Символьні обчислення",
+  "symbolic.derivative": "Похідна",
+  "symbolic.integral": "Інтеграл",
+  "symbolic.simplify": "Спростити",
+  "symbolic.factor": "Розкласти",
+  "symbolic.solve": "Розв'язати рівняння",
+  "symbolic.input": "Введи вираз, наприклад: sin(x)^2 + cos(x)^2",
+  "symbolic.variable": "Змінна",
+
+  "plot.title": "Графік",
+  "plot.expression": "Вираз",
+  "plot.params": "Параметри",
+  "plot.x_range": "Діапазон X",
+  "plot.add_param": "+ Параметр",
+
+  "repl.title": "REPL",
+  "repl.help": "Доступно: evaluate, history, memory, ans · Enter — виконати",
+
+  "export.markdown": "Markdown",
+  "export.pdf": "PDF",
+
+  "theme.dark": "Темна",
+  "theme.light": "Світла",
+  "lang.label": "Мова"
+}
