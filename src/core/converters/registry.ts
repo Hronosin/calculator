@@ -1,5 +1,8 @@
 /**
  * Unit converter registry.
+ *
+ * Note: side-effect imports of length/mass/temperature have been moved
+ * to main.tsx to avoid circular-import TDZ issues.
  */
 
 import type { Converter } from '../types';
@@ -41,7 +44,3 @@ export function convert(
   }
   throw new Error(`Converter ${toCode} requires fromBase function`);
 }
-
-import './length';
-import './mass';
-import './temperature';

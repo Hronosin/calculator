@@ -1,6 +1,9 @@
 /**
  * Formula registry.
  * Each formula module imports `register` and adds itself at module load time.
+ *
+ * Note: side-effect imports of physics/electric/chemistry have been moved
+ * to main.tsx to avoid circular-import TDZ issues.
  */
 
 import type { Formula } from '../types';
@@ -45,8 +48,3 @@ export function getCategories(): string[] {
 export function clear(): void {
   registry.clear();
 }
-
-// Force-import all built-in formula modules so they self-register
-import './physics';
-import './electric';
-import './chemistry';
