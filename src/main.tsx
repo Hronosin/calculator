@@ -1,12 +1,5 @@
 /**
  * Entry point.
- *
- * Order matters here:
- *  1. Global styles
- *  2. Registry modules (define register() functions)
- *  3. Formula/converter modules (call register() — must come AFTER step 2)
- *  4. Plugin manager
- *  5. Mount React
  */
 
 import React from 'react';
@@ -16,14 +9,36 @@ import App from './App';
 // 1. CSS
 import './ui/styles/global.css';
 
-// 2. Initialize registries (no side effects — just sets up Map and register fn)
+// 2. Initialize registries
 import './core/formulas/registry';
 import './core/converters/registry';
 
-// 3. Populate registries by importing modules that call register() at top-level
+// 3. Populate registries — formula domains
 import './core/formulas/physics';
+import './core/formulas/mechanics';
+import './core/formulas/thermodynamics';
+import './core/formulas/optics';
+import './core/formulas/electromagnetism';
+import './core/formulas/relativity';
+import './core/formulas/quantum';
+import './core/formulas/astronomy';
+import './core/formulas/geometry';
 import './core/formulas/electric';
 import './core/formulas/chemistry';
+import './core/formulas/biology';
+import './core/formulas/finance';
+// Niche additions
+import './core/formulas/aerodynamics';
+import './core/formulas/nuclear';
+import './core/formulas/acoustics';
+import './core/formulas/crypto';
+import './core/formulas/materials';
+import './core/formulas/statistics';
+import './core/formulas/earth';
+import './core/formulas/numbertheory';
+import './core/formulas/heattransfer';
+
+// Converters
 import './core/converters/length';
 import './core/converters/mass';
 import './core/converters/temperature';
