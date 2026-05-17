@@ -2,12 +2,13 @@
  * Command Palette (Ctrl+K / ⌘K).
  *
  * Aggregates formulas, converters, history and actions into a single
- * fuzzy-searchable list. This is one of the "killer features" — it makes
- * the otherwise huge feature set discoverable.
+ * fuzzy-searchable list. Formula names and converter names use the
+ * dictionary translations.
  */
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '../../i18n';
+import { tFormulaName, tCategory } from '../../i18n/dictionaries';
 import { getAll as allFormulas } from '../../core/formulas/registry';
 import { getAll as allConverters } from '../../core/converters/registry';
 import type { CommandPaletteItem } from '../../core/types';
@@ -20,17 +21,18 @@ interface Props {
 }
 
 export function CommandPalette({ open, onClose, onSelect, extraItems = [] }: Props) {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Reset on open
+  // Force re-memoization when locale changes
+  void locale;
+
   useEffect(() => {
     if (open) {
       setQuery('');
       setSelectedIndex(0);
-      // Focus next tick so the input is mounted
       setTimeout(() => inputRef.current?.focus(), 10);
     }
   }, [open]);
@@ -39,15 +41,18 @@ export function CommandPalette({ open, onClose, onSelect, extraItems = [] }: Pro
     const items: CommandPaletteItem[] = [];
 
     for (const f of allFormulas()) {
+      const localizedName = tFormulaName(f.id, f.name);
+      const localizedCategory = tCategory(f.category);
       items.push({
         id: `formula:${f.id}`,
-        title: f.name,
-        subtitle: `${f.category} · ${f.expression ?? f.id}`,
+        title: localizedName,
+        subtitle: `${localizedCategory} · ${f.expression ?? f.id}`,
         category: 'formula',
-        keywords: [f.id, f.category, f.description ?? ''],
-        action: () => {
-          /* set by consumer via onSelect */
-        },
+        // Keep original strings as keywords so search works regardless of locale
+        keywords: [
+          f.id, f.name, f.category, localizedCategory, f.description ?? '',
+        ],
+        action: () => {},
       });
     }
 
@@ -55,15 +60,15 @@ export function CommandPalette({ open, onClose, onSelect, extraItems = [] }: Pro
       items.push({
         id: `converter:${c.id}`,
         title: c.name,
-        subtitle: `Конвертер · ${c.units.length} единиц`,
+        subtitle: `${c.units.length} ${pickUnitsLabel(locale)}`,
         category: 'converter',
-        keywords: [c.id, c.category],
+        keywords: [c.id, c.category, c.name],
         action: () => {},
       });
     }
 
     return [...items, ...extraItems];
-  }, [extraItems]);
+  }, [extraItems, locale]);
 
   const filtered = useMemo(() => {
     if (!query) return allItems.slice(0, 50);
@@ -83,7 +88,6 @@ export function CommandPalette({ open, onClose, onSelect, extraItems = [] }: Pro
       .slice(0, 50);
   }, [allItems, query]);
 
-  // Keyboard navigation
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
@@ -196,6 +200,15 @@ export function CommandPalette({ open, onClose, onSelect, extraItems = [] }: Pro
       </div>
     </div>
   );
+}
+
+function pickUnitsLabel(locale: string): string {
+  const labels: Record<string, string> = {
+    en: 'units', ru: 'единиц', uk: 'одиниць', es: 'unidades',
+    de: 'Einheiten', fr: 'unités', zh: '单位', ja: '単位',
+    pt: 'unidades', it: 'unità', pl: 'jednostek',
+  };
+  return labels[locale] ?? labels.en;
 }
 
 function CategoryBadge({ category }: { category: string }) {

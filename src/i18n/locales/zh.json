@@ -1,0 +1,53 @@
+{
+  "app.title": "工程计算器",
+  "app.subtitle": "v2 · 模块化架构",
+
+  "tab.calc": "计算器",
+  "tab.symbolic": "符号运算",
+  "tab.plot": "图形",
+  "tab.formulas": "公式",
+  "tab.units": "单位",
+  "tab.repl": "REPL",
+  "tab.plugins": "插件",
+
+  "btn.equals": "=",
+  "btn.clear": "C",
+  "btn.delete": "⌫",
+  "btn.memory.clear": "MC",
+  "btn.memory.recall": "MR",
+  "btn.memory.plus": "M+",
+  "btn.memory.minus": "M−",
+
+  "history.title": "历史记录",
+  "history.empty": "空。输入表达式并按 =",
+  "history.clear": "清除",
+
+  "palette.placeholder": "搜索公式、转换器、操作…",
+  "palette.empty": "无结果",
+  "palette.hint": "↑↓ — 导航 · Enter — 打开 · Esc — 关闭",
+
+  "symbolic.title": "符号计算",
+  "symbolic.derivative": "导数",
+  "symbolic.integral": "积分",
+  "symbolic.simplify": "化简",
+  "symbolic.factor": "因式分解",
+  "symbolic.solve": "解方程",
+  "symbolic.input": "输入表达式，例如：sin(x)^2 + cos(x)^2",
+  "symbolic.variable": "变量",
+
+  "plot.title": "图形",
+  "plot.expression": "表达式",
+  "plot.params": "参数",
+  "plot.x_range": "X 范围",
+  "plot.add_param": "+ 参数",
+
+  "repl.title": "REPL",
+  "repl.help": "可用：evaluate, history, memory, ans · Enter — 执行",
+
+  "export.markdown": "Markdown",
+  "export.pdf": "PDF",
+
+  "theme.dark": "深色",
+  "theme.light": "浅色",
+  "lang.label": "语言"
+}

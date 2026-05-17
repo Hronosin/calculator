@@ -1,0 +1,53 @@
+{
+  "app.title": "Kalkulator inżynierski",
+  "app.subtitle": "v2 · architektura modułowa",
+
+  "tab.calc": "Kalkulator",
+  "tab.symbolic": "Symboliczne",
+  "tab.plot": "Wykres",
+  "tab.formulas": "Wzory",
+  "tab.units": "Jednostki",
+  "tab.repl": "REPL",
+  "tab.plugins": "Wtyczki",
+
+  "btn.equals": "=",
+  "btn.clear": "C",
+  "btn.delete": "⌫",
+  "btn.memory.clear": "MC",
+  "btn.memory.recall": "MR",
+  "btn.memory.plus": "M+",
+  "btn.memory.minus": "M−",
+
+  "history.title": "Historia",
+  "history.empty": "Pusto. Wpisz wyrażenie i naciśnij =",
+  "history.clear": "Wyczyść",
+
+  "palette.placeholder": "Szukaj wzorów, konwerterów, akcji…",
+  "palette.empty": "Brak wyników",
+  "palette.hint": "↑↓ — nawigacja · Enter — otwórz · Esc — zamknij",
+
+  "symbolic.title": "Obliczenia symboliczne",
+  "symbolic.derivative": "Pochodna",
+  "symbolic.integral": "Całka",
+  "symbolic.simplify": "Uprość",
+  "symbolic.factor": "Rozłóż",
+  "symbolic.solve": "Rozwiąż równanie",
+  "symbolic.input": "Wpisz wyrażenie, np.: sin(x)^2 + cos(x)^2",
+  "symbolic.variable": "Zmienna",
+
+  "plot.title": "Wykres",
+  "plot.expression": "Wyrażenie",
+  "plot.params": "Parametry",
+  "plot.x_range": "Zakres X",
+  "plot.add_param": "+ Parametr",
+
+  "repl.title": "REPL",
+  "repl.help": "Dostępne: evaluate, history, memory, ans · Enter — uruchom",
+
+  "export.markdown": "Markdown",
+  "export.pdf": "PDF",
+
+  "theme.dark": "Ciemny",
+  "theme.light": "Jasny",
+  "lang.label": "Język"
+}

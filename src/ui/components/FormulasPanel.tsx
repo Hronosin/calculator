@@ -1,5 +1,6 @@
 /**
- * Formulas panel — browse formulas by category, fill inputs, compute result.
+ * Formulas browser panel.
+ * Categories and formula names are translated via i18n/dictionaries.
  */
 
 import { useMemo, useState } from 'react';
@@ -7,22 +8,31 @@ import { getAll, getCategories } from '../../core/formulas/registry';
 import type { Formula, FormulaOutput } from '../../core/types';
 import { Latex } from './Latex';
 import { history } from '../../core/history';
+import { useTranslation } from '../../i18n';
+import { tCategory, tFormulaName } from '../../i18n/dictionaries';
+
+const ALL_CATEGORY_KEY = 'Все';
 
 export function FormulasPanel() {
-  const categories = useMemo(() => ['Все', ...getCategories()], []);
-  const [activeCategory, setActiveCategory] = useState('Все');
+  // Re-render when locale changes so translations update
+  const { locale } = useTranslation();
+  void locale;
+
+  const rawCategories = useMemo(() => [ALL_CATEGORY_KEY, ...getCategories()], []);
+  const [activeCategory, setActiveCategory] = useState(ALL_CATEGORY_KEY);
   const [selected, setSelected] = useState<Formula | null>(null);
 
   const list = useMemo(() => {
     const all = getAll();
-    return activeCategory === 'Все' ? all : all.filter((f) => f.category === activeCategory);
+    return activeCategory === ALL_CATEGORY_KEY
+      ? all
+      : all.filter((f) => f.category === activeCategory);
   }, [activeCategory]);
 
   return (
     <div className="flex flex-col gap-4 h-full">
-      {/* Category tabs */}
       <div className="flex gap-1 overflow-x-auto pb-1">
-        {categories.map((cat) => (
+        {rawCategories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
@@ -33,13 +43,12 @@ export function FormulasPanel() {
               border: `1px solid ${activeCategory === cat ? 'var(--accent)' : 'var(--border)'}`,
             }}
           >
-            {cat}
+            {tCategory(cat)}
           </button>
         ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
-        {/* Left: list */}
         <div className="overflow-y-auto pr-1">
           <ul className="flex flex-col gap-1">
             {list.map((f) => (
@@ -54,7 +63,7 @@ export function FormulasPanel() {
                   }}
                 >
                   <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>
-                    {f.name}
+                    {tFormulaName(f.id, f.name)}
                   </div>
                   <div className="font-mono text-xs mt-0.5"
                     style={{ color: 'var(--text-faint)' }}>
@@ -66,13 +75,12 @@ export function FormulasPanel() {
           </ul>
         </div>
 
-        {/* Right: selected formula form */}
         <div className="overflow-y-auto pl-1">
           {selected ? (
             <FormulaForm formula={selected} key={selected.id} />
           ) : (
             <div className="text-sm font-mono p-4" style={{ color: 'var(--text-faint)' }}>
-              ← Выбери формулу слева
+              ← {pickHint(locale)}
             </div>
           )}
         </div>
@@ -81,7 +89,28 @@ export function FormulasPanel() {
   );
 }
 
+// Tiny inline hint translations
+function pickHint(locale: string): string {
+  const hints: Record<string, string> = {
+    en: 'Pick a formula on the left',
+    ru: 'Выбери формулу слева',
+    uk: 'Обери формулу зліва',
+    es: 'Selecciona una fórmula a la izquierda',
+    de: 'Wähle links eine Formel',
+    fr: 'Choisis une formule à gauche',
+    zh: '从左侧选择公式',
+    ja: '左から数式を選択',
+    pt: 'Selecione uma fórmula à esquerda',
+    it: 'Seleziona una formula a sinistra',
+    pl: 'Wybierz wzór po lewej',
+  };
+  return hints[locale] ?? hints.en;
+}
+
 function FormulaForm({ formula }: { formula: Formula }) {
+  const { locale } = useTranslation();
+  void locale;
+
   const [values, setValues] = useState<Record<string, number>>(() => {
     const v: Record<string, number> = {};
     for (const input of formula.inputs) v[input.name] = input.default;
@@ -96,7 +125,9 @@ function FormulaForm({ formula }: { formula: Formula }) {
       setOutput(result);
       setError('');
       history.add({
-        expression: `${formula.name}(${Object.entries(values).map(([k, v]) => `${k}=${v}`).join(', ')})`,
+        expression: `${tFormulaName(formula.id, formula.name)}(${Object.entries(values)
+          .map(([k, v]) => `${k}=${v}`)
+          .join(', ')})`,
         result: `${result.result} ${result.unit ?? ''}`.trim(),
         latex: result.latex,
         kind: 'plugin',
@@ -111,7 +142,7 @@ function FormulaForm({ formula }: { formula: Formula }) {
     <div className="flex flex-col gap-3">
       <div>
         <h3 className="font-display text-lg" style={{ color: 'var(--text)' }}>
-          {formula.name}
+          {tFormulaName(formula.id, formula.name)}
         </h3>
         {formula.description && (
           <div className="text-xs font-mono mt-1" style={{ color: 'var(--text-muted)' }}>
@@ -157,10 +188,10 @@ function FormulaForm({ formula }: { formula: Formula }) {
         className="px-4 py-2 rounded-lg text-sm font-medium"
         style={{
           background: 'var(--accent)',
-          color: 'var(--bg)',
+          color: 'var(--accent-fg, var(--bg))',
         }}
       >
-        Вычислить
+        {pickComputeLabel(useTranslation().locale)}
       </button>
 
       {error && (
@@ -192,4 +223,21 @@ function FormulaForm({ formula }: { formula: Formula }) {
       )}
     </div>
   );
+}
+
+function pickComputeLabel(locale: string): string {
+  const labels: Record<string, string> = {
+    en: 'Compute',
+    ru: 'Вычислить',
+    uk: 'Обчислити',
+    es: 'Calcular',
+    de: 'Berechnen',
+    fr: 'Calculer',
+    zh: '计算',
+    ja: '計算',
+    pt: 'Calcular',
+    it: 'Calcola',
+    pl: 'Oblicz',
+  };
+  return labels[locale] ?? labels.en;
 }

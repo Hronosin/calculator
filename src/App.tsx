@@ -1,18 +1,11 @@
 /**
  * Root application component.
- *
- * Layout:
- *  ┌────────────────────────────────────────────────────┐
- *  │ Header: title, lang switch, theme toggle, ⌘K hint  │
- *  ├──────────┬─────────────────────────┬───────────────┤
- *  │ Sidebar  │ Active panel            │ History       │
- *  │ (tabs)   │ (calc/sym/plot/...)     │ (collapsible) │
- *  └──────────┴─────────────────────────┴───────────────┘
  */
 
 import { useEffect, useState } from 'react';
-import { ThemeProvider, useTheme } from './ui/theme';
-import { useTranslation, i18n } from './i18n';
+import { ThemeProvider, useTheme, THEMES, type ThemeId } from './ui/theme';
+import { useTranslation, i18n, SUPPORTED_LOCALES, type Locale } from './i18n';
+import { tTheme } from './i18n/dictionaries';
 import { Calculator } from './ui/components/Calculator';
 import { SymbolicPanel } from './ui/components/SymbolicPanel';
 import { PlotPanel } from './ui/components/PlotPanel';
@@ -27,7 +20,7 @@ type Tab = 'calc' | 'symbolic' | 'plot' | 'formulas' | 'units' | 'repl' | 'plugi
 
 function AppShell() {
   const { t, locale, setLocale } = useTranslation();
-  const { theme, toggle: toggleTheme } = useTheme();
+  const { theme, setTheme, cycle: cycleTheme } = useTheme();
   const [tab, setTab] = useState<Tab>('calc');
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(true);
@@ -44,16 +37,18 @@ function AppShell() {
         setHistoryOpen((h) => !h);
       } else if (meta && e.key.toLowerCase() === 't') {
         e.preventDefault();
-        toggleTheme();
+        cycleTheme();
       } else if (meta && e.key === '/') {
         e.preventDefault();
-        const next = locale === 'ru' ? 'en' : locale === 'en' ? 'uk' : 'ru';
+        const codes = SUPPORTED_LOCALES.map((l) => l.code);
+        const idx = codes.indexOf(locale);
+        const next = codes[(idx + 1) % codes.length];
         setLocale(next);
       }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [toggleTheme, locale, setLocale]);
+  }, [cycleTheme, locale, setLocale]);
 
   const tabs: Array<{ id: Tab; label: string; icon: string }> = [
     { id: 'calc', label: t('tab.calc'), icon: '⌗' },
@@ -67,7 +62,6 @@ function AppShell() {
 
   return (
     <div className="h-screen flex flex-col">
-      {/* Header */}
       <header
         className="flex items-center justify-between px-5 py-3 flex-shrink-0"
         style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg-elevated)' }}
@@ -101,31 +95,41 @@ function AppShell() {
 
           <select
             value={locale}
-            onChange={(e) => setLocale(e.target.value as 'ru' | 'en' | 'uk')}
+            onChange={(e) => setLocale(e.target.value as Locale)}
             className="font-mono text-xs px-2 py-1 rounded outline-none cursor-pointer"
             style={{
               background: 'var(--bg-card)',
               border: '1px solid var(--border)',
               color: 'var(--text)',
+              maxWidth: 140,
             }}
+            title={t('lang.label')}
           >
-            <option value="ru">RU</option>
-            <option value="en">EN</option>
-            <option value="uk">UK</option>
+            {SUPPORTED_LOCALES.map((l) => (
+              <option key={l.code} value={l.code}>
+                {l.short} · {l.native}
+              </option>
+            ))}
           </select>
 
-          <button
-            onClick={toggleTheme}
-            className="font-mono text-xs px-2.5 py-1 rounded"
+          <select
+            value={theme}
+            onChange={(e) => setTheme(e.target.value as ThemeId)}
+            className="font-mono text-xs px-2 py-1 rounded outline-none cursor-pointer"
             style={{
               background: 'var(--bg-card)',
               border: '1px solid var(--border)',
               color: 'var(--text)',
+              maxWidth: 220,
             }}
-            title="Toggle theme"
+            title="Theme"
           >
-            {theme === 'dark' ? '☾' : '☼'}
-          </button>
+            {THEMES.map((th) => (
+              <option key={th.id} value={th.id}>
+                {th.icon} {tTheme(th.id)}
+              </option>
+            ))}
+          </select>
 
           <button
             onClick={() => setHistoryOpen((v) => !v)}
@@ -142,9 +146,7 @@ function AppShell() {
         </div>
       </header>
 
-      {/* Main body */}
       <div className="flex-1 flex min-h-0">
-        {/* Sidebar */}
         <nav
           className="flex-shrink-0 flex flex-col items-center py-3 gap-1"
           style={{
@@ -153,24 +155,25 @@ function AppShell() {
             borderRight: '1px solid var(--border)',
           }}
         >
-          {tabs.map((t) => (
+          {tabs.map((tabItem) => (
             <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
+              key={tabItem.id}
+              onClick={() => setTab(tabItem.id)}
               className="w-12 h-12 rounded-lg flex flex-col items-center justify-center transition-colors group relative"
               style={{
-                background: tab === t.id ? 'var(--accent-glow)' : 'transparent',
-                color: tab === t.id ? 'var(--accent)' : 'var(--text-muted)',
+                background: tab === tabItem.id ? 'var(--accent-glow)' : 'transparent',
+                color: tab === tabItem.id ? 'var(--accent)' : 'var(--text-muted)',
               }}
-              title={t.label}
+              title={tabItem.label}
             >
-              <span className="text-base font-mono">{t.icon}</span>
-              <span className="text-[9px] mt-0.5 uppercase tracking-wider">{t.label.slice(0, 4)}</span>
+              <span className="text-base font-mono">{tabItem.icon}</span>
+              <span className="text-[9px] mt-0.5 uppercase tracking-wider">
+                {tabItem.label.slice(0, 4)}
+              </span>
             </button>
           ))}
         </nav>
 
-        {/* Active panel */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6 min-w-0">
           {tab === 'calc' && <Calculator />}
           {tab === 'symbolic' && <SymbolicPanel />}
@@ -181,7 +184,6 @@ function AppShell() {
           {tab === 'plugins' && <PluginPanel />}
         </main>
 
-        {/* History side panel */}
         {historyOpen && (
           <aside
             className="hidden md:flex flex-col flex-shrink-0"
@@ -193,7 +195,6 @@ function AppShell() {
           >
             <History
               onRecall={(entry) => {
-                // Naive recall — paste expression into something? For now just log.
                 navigator.clipboard?.writeText(entry.expression).catch(() => {});
               }}
             />
@@ -201,12 +202,10 @@ function AppShell() {
         )}
       </div>
 
-      {/* Command Palette */}
       <CommandPalette
         open={paletteOpen}
         onClose={() => setPaletteOpen(false)}
         onSelect={(item) => {
-          // Route based on category
           if (item.category === 'formula') {
             setTab('formulas');
           } else if (item.category === 'converter') {
@@ -221,7 +220,6 @@ function AppShell() {
 }
 
 export default function App() {
-  // i18n already self-initializes; touching the import ensures it's loaded
   void i18n;
   return (
     <ThemeProvider>

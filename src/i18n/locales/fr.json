@@ -1,0 +1,53 @@
+{
+  "app.title": "Calculatrice d'ingénierie",
+  "app.subtitle": "v2 · architecture modulaire",
+
+  "tab.calc": "Calculatrice",
+  "tab.symbolic": "Symbolique",
+  "tab.plot": "Graphique",
+  "tab.formulas": "Formules",
+  "tab.units": "Unités",
+  "tab.repl": "REPL",
+  "tab.plugins": "Plugins",
+
+  "btn.equals": "=",
+  "btn.clear": "C",
+  "btn.delete": "⌫",
+  "btn.memory.clear": "MC",
+  "btn.memory.recall": "MR",
+  "btn.memory.plus": "M+",
+  "btn.memory.minus": "M−",
+
+  "history.title": "Historique",
+  "history.empty": "Vide. Saisissez une expression et appuyez sur =",
+  "history.clear": "Effacer",
+
+  "palette.placeholder": "Rechercher formules, convertisseurs, actions…",
+  "palette.empty": "Aucun résultat",
+  "palette.hint": "↑↓ — naviguer · Entrée — ouvrir · Esc — fermer",
+
+  "symbolic.title": "Calcul symbolique",
+  "symbolic.derivative": "Dérivée",
+  "symbolic.integral": "Intégrale",
+  "symbolic.simplify": "Simplifier",
+  "symbolic.factor": "Factoriser",
+  "symbolic.solve": "Résoudre l'équation",
+  "symbolic.input": "Saisissez une expression, ex. : sin(x)^2 + cos(x)^2",
+  "symbolic.variable": "Variable",
+
+  "plot.title": "Graphique",
+  "plot.expression": "Expression",
+  "plot.params": "Paramètres",
+  "plot.x_range": "Plage X",
+  "plot.add_param": "+ Paramètre",
+
+  "repl.title": "REPL",
+  "repl.help": "Disponibles : evaluate, history, memory, ans · Entrée — exécuter",
+
+  "export.markdown": "Markdown",
+  "export.pdf": "PDF",
+
+  "theme.dark": "Sombre",
+  "theme.light": "Clair",
+  "lang.label": "Langue"
+}

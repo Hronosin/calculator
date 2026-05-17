@@ -1,0 +1,53 @@
+{
+  "app.title": "エンジニアリング電卓",
+  "app.subtitle": "v2 · モジュラーアーキテクチャ",
+
+  "tab.calc": "電卓",
+  "tab.symbolic": "シンボリック",
+  "tab.plot": "グラフ",
+  "tab.formulas": "数式",
+  "tab.units": "単位",
+  "tab.repl": "REPL",
+  "tab.plugins": "プラグイン",
+
+  "btn.equals": "=",
+  "btn.clear": "C",
+  "btn.delete": "⌫",
+  "btn.memory.clear": "MC",
+  "btn.memory.recall": "MR",
+  "btn.memory.plus": "M+",
+  "btn.memory.minus": "M−",
+
+  "history.title": "履歴",
+  "history.empty": "空です。式を入力して = を押してください",
+  "history.clear": "クリア",
+
+  "palette.placeholder": "数式・変換・アクションを検索…",
+  "palette.empty": "結果なし",
+  "palette.hint": "↑↓ — 移動 · Enter — 開く · Esc — 閉じる",
+
+  "symbolic.title": "シンボリック計算",
+  "symbolic.derivative": "微分",
+  "symbolic.integral": "積分",
+  "symbolic.simplify": "簡略化",
+  "symbolic.factor": "因数分解",
+  "symbolic.solve": "方程式を解く",
+  "symbolic.input": "式を入力 (例: sin(x)^2 + cos(x)^2)",
+  "symbolic.variable": "変数",
+
+  "plot.title": "グラフ",
+  "plot.expression": "式",
+  "plot.params": "パラメータ",
+  "plot.x_range": "X 範囲",
+  "plot.add_param": "+ パラメータ",
+
+  "repl.title": "REPL",
+  "repl.help": "利用可能: evaluate, history, memory, ans · Enter — 実行",
+
+  "export.markdown": "Markdown",
+  "export.pdf": "PDF",
+
+  "theme.dark": "ダーク",
+  "theme.light": "ライト",
+  "lang.label": "言語"
+}

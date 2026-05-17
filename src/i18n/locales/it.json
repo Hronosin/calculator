@@ -1,0 +1,53 @@
+{
+  "app.title": "Calcolatrice ingegneristica",
+  "app.subtitle": "v2 · architettura modulare",
+
+  "tab.calc": "Calcolatrice",
+  "tab.symbolic": "Simbolico",
+  "tab.plot": "Grafico",
+  "tab.formulas": "Formule",
+  "tab.units": "Unità",
+  "tab.repl": "REPL",
+  "tab.plugins": "Plug-in",
+
+  "btn.equals": "=",
+  "btn.clear": "C",
+  "btn.delete": "⌫",
+  "btn.memory.clear": "MC",
+  "btn.memory.recall": "MR",
+  "btn.memory.plus": "M+",
+  "btn.memory.minus": "M−",
+
+  "history.title": "Cronologia",
+  "history.empty": "Vuoto. Inserisci un'espressione e premi =",
+  "history.clear": "Pulisci",
+
+  "palette.placeholder": "Cerca formule, convertitori, azioni…",
+  "palette.empty": "Nessun risultato",
+  "palette.hint": "↑↓ — navigare · Invio — aprire · Esc — chiudere",
+
+  "symbolic.title": "Calcolo simbolico",
+  "symbolic.derivative": "Derivata",
+  "symbolic.integral": "Integrale",
+  "symbolic.simplify": "Semplifica",
+  "symbolic.factor": "Fattorizza",
+  "symbolic.solve": "Risolvi equazione",
+  "symbolic.input": "Inserisci un'espressione, es.: sin(x)^2 + cos(x)^2",
+  "symbolic.variable": "Variabile",
+
+  "plot.title": "Grafico",
+  "plot.expression": "Espressione",
+  "plot.params": "Parametri",
+  "plot.x_range": "Intervallo X",
+  "plot.add_param": "+ Parametro",
+
+  "repl.title": "REPL",
+  "repl.help": "Disponibili: evaluate, history, memory, ans · Invio — esegui",
+
+  "export.markdown": "Markdown",
+  "export.pdf": "PDF",
+
+  "theme.dark": "Scuro",
+  "theme.light": "Chiaro",
+  "lang.label": "Lingua"
+}

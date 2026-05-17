@@ -2,14 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ──────────────────────────────────────────────────────────
-   Design tokens — CSS variables drive both light and dark themes.
-   Calculator aesthetic: precision instrument, MATLAB-vibes.
-   Cool deep charcoals with electric cyan accent.
-   ────────────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════
+   THEME PALETTES
+   Default is Dark — applied via :root.
+   Other themes via [data-theme="..."].
+   ══════════════════════════════════════════════════════════════════ */
 
-:root {
-  /* Dark theme — default */
+/* ─── DARK (default) ─────────────────────────────────────────── */
+:root,
+:root[data-theme='dark'] {
   --bg: #0a0a0c;
   --bg-elevated: #101014;
   --bg-card: #16161c;
@@ -24,6 +25,7 @@
   --text-faint: #5c5c70;
 
   --accent: #00d9ff;
+  --accent-fg: #0a0a0c;
   --accent-glow: rgba(0, 217, 255, 0.15);
   --amber: #ffb547;
   --sage: #7dd3a0;
@@ -31,8 +33,12 @@
 
   --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2);
   --shadow-strong: 0 4px 12px rgba(0, 0, 0, 0.6), 0 24px 56px rgba(0, 0, 0, 0.4);
+
+  --grain-opacity: 0.6;
 }
 
+/* ─── LIGHT ─────────────────────────────────────────────────── */
+:root[data-theme='light'],
 :root.light {
   --bg: #f7f7f4;
   --bg-elevated: #ffffff;
@@ -48,6 +54,7 @@
   --text-faint: #9a9a90;
 
   --accent: #0066cc;
+  --accent-fg: #ffffff;
   --accent-glow: rgba(0, 102, 204, 0.12);
   --amber: #cc7a00;
   --sage: #3a9960;
@@ -55,7 +62,181 @@
 
   --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
   --shadow-strong: 0 4px 12px rgba(0, 0, 0, 0.12), 0 24px 56px rgba(0, 0, 0, 0.08);
+
+  --grain-opacity: 0.15;
 }
+
+/* ─── PINK ("Строгая Серьозность") ──────────────────────────── */
+:root[data-theme='pink'] {
+  --bg: #fff0f5;
+  --bg-elevated: #ffe4f0;
+  --bg-card: #ffd9e8;
+  --bg-hover: #ffc4dd;
+  --display: #fff5fa;
+
+  --border: #ffb6d4;
+  --border-strong: #ff8fb8;
+
+  --text: #4a0e3a;
+  --text-muted: #8b3a6e;
+  --text-faint: #b06090;
+
+  --accent: #ff1493;
+  --accent-fg: #ffffff;
+  --accent-glow: rgba(255, 20, 147, 0.18);
+  --amber: #ff8c00;
+  --sage: #b074d8;
+  --rose: #dc143c;
+
+  --shadow-soft: 0 1px 2px rgba(255, 20, 147, 0.1), 0 8px 24px rgba(255, 20, 147, 0.08);
+  --shadow-strong: 0 4px 12px rgba(255, 20, 147, 0.2), 0 24px 56px rgba(255, 20, 147, 0.12);
+
+  --grain-opacity: 0.1;
+}
+
+/* ─── SYNTHWAVE (80s neon retro) ────────────────────────────── */
+:root[data-theme='synthwave'] {
+  --bg: #0a0418;
+  --bg-elevated: #110826;
+  --bg-card: #1a0e3a;
+  --bg-hover: #261452;
+  --display: #050208;
+
+  --border: #3d1d6e;
+  --border-strong: #5a2a9c;
+
+  --text: #ffe1ff;
+  --text-muted: #c08fd8;
+  --text-faint: #8060a0;
+
+  --accent: #ff00d4;
+  --accent-fg: #0a0418;
+  --accent-glow: rgba(255, 0, 212, 0.22);
+  --amber: #ffe600;
+  --sage: #00ffea;
+  --rose: #ff3677;
+
+  --shadow-soft: 0 1px 2px rgba(255, 0, 212, 0.3), 0 8px 24px rgba(0, 255, 234, 0.12);
+  --shadow-strong: 0 4px 12px rgba(255, 0, 212, 0.4), 0 24px 56px rgba(0, 255, 234, 0.18);
+
+  --grain-opacity: 0.8;
+}
+
+/* ─── SOLARIZED DARK ────────────────────────────────────────── */
+:root[data-theme='solarized'] {
+  --bg: #002b36;
+  --bg-elevated: #073642;
+  --bg-card: #0a4654;
+  --bg-hover: #144957;
+  --display: #001b22;
+
+  --border: #586e75;
+  --border-strong: #657b83;
+
+  --text: #fdf6e3;
+  --text-muted: #93a1a1;
+  --text-faint: #586e75;
+
+  --accent: #268bd2;
+  --accent-fg: #fdf6e3;
+  --accent-glow: rgba(38, 139, 210, 0.18);
+  --amber: #b58900;
+  --sage: #859900;
+  --rose: #dc322f;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-strong: 0 4px 12px rgba(0, 0, 0, 0.6), 0 24px 56px rgba(0, 0, 0, 0.4);
+
+  --grain-opacity: 0.4;
+}
+
+/* ─── NORD ──────────────────────────────────────────────────── */
+:root[data-theme='nord'] {
+  --bg: #2e3440;
+  --bg-elevated: #3b4252;
+  --bg-card: #434c5e;
+  --bg-hover: #4c566a;
+  --display: #232831;
+
+  --border: #4c566a;
+  --border-strong: #5c6377;
+
+  --text: #eceff4;
+  --text-muted: #d8dee9;
+  --text-faint: #81a1c1;
+
+  --accent: #88c0d0;
+  --accent-fg: #2e3440;
+  --accent-glow: rgba(136, 192, 208, 0.2);
+  --amber: #ebcb8b;
+  --sage: #a3be8c;
+  --rose: #bf616a;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 4px 12px rgba(0, 0, 0, 0.5), 0 24px 56px rgba(0, 0, 0, 0.3);
+
+  --grain-opacity: 0.3;
+}
+
+/* ─── MATRIX (green terminal) ───────────────────────────────── */
+:root[data-theme='matrix'] {
+  --bg: #000000;
+  --bg-elevated: #0a0e0a;
+  --bg-card: #0e1810;
+  --bg-hover: #142318;
+  --display: #000404;
+
+  --border: #1a3322;
+  --border-strong: #2a5a3a;
+
+  --text: #00ff41;
+  --text-muted: #00aa30;
+  --text-faint: #006020;
+
+  --accent: #00ff41;
+  --accent-fg: #000000;
+  --accent-glow: rgba(0, 255, 65, 0.2);
+  --amber: #f0c000;
+  --sage: #50ffaa;
+  --rose: #ff4040;
+
+  --shadow-soft: 0 1px 2px rgba(0, 255, 65, 0.15), 0 8px 24px rgba(0, 255, 65, 0.05);
+  --shadow-strong: 0 4px 12px rgba(0, 255, 65, 0.3), 0 24px 56px rgba(0, 255, 65, 0.1);
+
+  --grain-opacity: 1;
+}
+
+/* ─── SEPIA (reading mode) ──────────────────────────────────── */
+:root[data-theme='sepia'] {
+  --bg: #f4ecd8;
+  --bg-elevated: #ede4cc;
+  --bg-card: #e8dcc0;
+  --bg-hover: #e0d2b0;
+  --display: #f8f1de;
+
+  --border: #c8b896;
+  --border-strong: #a89570;
+
+  --text: #5b4636;
+  --text-muted: #8a6f50;
+  --text-faint: #a89070;
+
+  --accent: #8b4513;
+  --accent-fg: #f8f1de;
+  --accent-glow: rgba(139, 69, 19, 0.13);
+  --amber: #c87a00;
+  --sage: #6b8e23;
+  --rose: #b22222;
+
+  --shadow-soft: 0 1px 2px rgba(91, 70, 54, 0.08), 0 8px 24px rgba(91, 70, 54, 0.05);
+  --shadow-strong: 0 4px 12px rgba(91, 70, 54, 0.15), 0 24px 56px rgba(91, 70, 54, 0.1);
+
+  --grain-opacity: 0.25;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   BASE STYLES (consume theme variables)
+   ══════════════════════════════════════════════════════════════════ */
 
 * {
   box-sizing: border-box;
@@ -78,9 +259,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  transition: background 240ms ease, color 240ms ease;
 }
 
-/* Subtle grain overlay — adds depth, very faint */
+/* Subtle grain — intensity per theme */
 body::before {
   content: '';
   position: fixed;
@@ -88,7 +270,7 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.05 0 0 0 0 0.05 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.6;
+  opacity: var(--grain-opacity, 0.6);
   mix-blend-mode: overlay;
 }
 
@@ -97,7 +279,6 @@ body::before {
   z-index: 1;
 }
 
-/* Typography */
 .font-mono,
 .mono {
   font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
@@ -110,7 +291,7 @@ body::before {
   letter-spacing: -0.02em;
 }
 
-/* Calc button — base style */
+/* Calc buttons */
 .calc-btn {
   display: inline-flex;
   align-items: center;
@@ -125,7 +306,7 @@ body::before {
   cursor: pointer;
   font-family: 'JetBrains Mono', monospace;
   font-size: 16px;
-  transition: background 120ms ease, border-color 120ms ease, transform 80ms ease;
+  transition: background 120ms ease, border-color 120ms ease, transform 80ms ease, color 120ms ease;
   user-select: none;
 }
 
@@ -151,7 +332,8 @@ body::before {
 }
 
 .calc-btn-op:hover {
-  background: rgba(0, 217, 255, 0.22);
+  background: var(--accent-glow);
+  filter: brightness(1.2);
 }
 
 .calc-btn-fn {
@@ -171,14 +353,14 @@ body::before {
 
 .calc-btn-eq {
   background: var(--accent);
-  color: #0a0a0c;
+  color: var(--accent-fg);
   border-color: transparent;
   font-weight: 600;
   font-size: 20px;
 }
 
 .calc-btn-eq:hover {
-  background: #33e0ff;
+  filter: brightness(1.15);
 }
 
 .calc-btn-clr {
@@ -202,14 +384,13 @@ body::before {
   background: var(--border-strong);
 }
 
-/* Focus visible */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Range input styling */
+/* Range inputs */
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
@@ -248,13 +429,13 @@ input[type='range']::-moz-range-thumb {
   box-shadow: 0 0 0 3px var(--bg);
 }
 
-/* KaTeX overrides — keep our color palette */
+/* KaTeX */
 .katex {
   color: var(--text);
   font-size: 1.1em;
 }
 
-/* function-plot styling */
+/* function-plot */
 .function-plot text {
   fill: var(--text-muted);
 }

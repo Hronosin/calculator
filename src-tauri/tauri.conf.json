@@ -1,25 +1,22 @@
 {
-  "$schema": "https://schema.tauri.app/config/2.0.0",
-  "productName": "EngineeringCalculator",
-  "version": "2.0.0",
-  "identifier": "io.calc.engineering",
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "engineering-calculator",
+  "version": "0.1.0",
+  "identifier": "com.tauri.dev",
   "build": {
-    "beforeDevCommand": "npm run dev",
+    "frontendDist": "../build",
     "devUrl": "http://localhost:5173",
-    "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
   },
   "app": {
     "windows": [
       {
-        "title": "Engineering Calculator",
-        "width": 1100,
-        "height": 760,
-        "minWidth": 480,
-        "minHeight": 600,
-        "decorations": true,
-        "transparent": false,
-        "backgroundColor": "#0a0a0c"
+        "title": "engineering-calculator",
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "fullscreen": false
       }
     ],
     "security": {
@@ -32,11 +29,12 @@
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
+      "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "category": "Education",
-    "shortDescription": "Modular engineering calculator",
-    "longDescription": "Cross-platform engineering calculator with symbolic math, plotting, units conversion, and a plugin system."
+    "android": {
+      "debugApplicationIdSuffix": ".debug"
+    }
   }
 }

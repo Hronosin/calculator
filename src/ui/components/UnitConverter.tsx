@@ -1,12 +1,19 @@
 /**
  * Unit converter panel.
  * Uses the converter registry — pick a converter, value, from/to units.
+ * Names of converters are translated via i18n/dictionaries#tConverterName.
  */
 
 import { useMemo, useState, useEffect } from 'react';
 import { getAll, convert } from '../../core/converters/registry';
+import { useTranslation } from '../../i18n';
+import { tConverterName } from '../../i18n/dictionaries';
 
 export function UnitConverter() {
+  // Re-render on locale change
+  const { locale } = useTranslation();
+  void locale;
+
   const converters = useMemo(() => getAll(), []);
   const [activeId, setActiveId] = useState(converters[0]?.id ?? '');
   const active = converters.find((c) => c.id === activeId);
@@ -46,7 +53,7 @@ export function UnitConverter() {
   return (
     <div className="flex flex-col gap-4">
       {/* Converter selector */}
-      <div className="flex gap-1 overflow-x-auto pb-1">
+      <div className="flex gap-1 flex-wrap pb-1">
         {converters.map((c) => (
           <button
             key={c.id}
@@ -58,7 +65,7 @@ export function UnitConverter() {
               border: `1px solid ${activeId === c.id ? 'var(--accent)' : 'var(--border)'}`,
             }}
           >
-            {c.name}
+            {tConverterName(c.id, c.name)}
           </button>
         ))}
       </div>
@@ -69,7 +76,7 @@ export function UnitConverter() {
           <div className="flex flex-col gap-2">
             <label className="text-[11px] uppercase tracking-widest"
               style={{ color: 'var(--text-muted)' }}>
-              Из
+              {pickFromLabel(locale)}
             </label>
             <input
               type="text"
@@ -109,10 +116,10 @@ export function UnitConverter() {
           <div className="flex flex-col gap-2">
             <label className="text-[11px] uppercase tracking-widest"
               style={{ color: 'var(--text-muted)' }}>
-              В
+              {pickToLabel(locale)}
             </label>
             <div
-              className="font-mono text-2xl px-3 py-3 rounded-lg"
+              className="font-mono text-2xl px-3 py-3 rounded-lg break-all"
               style={{
                 background: 'var(--display)',
                 color: error ? 'var(--rose)' : 'var(--accent)',
@@ -145,12 +152,27 @@ export function UnitConverter() {
   );
 }
 
+function pickFromLabel(locale: string): string {
+  const m: Record<string, string> = {
+    en: 'From', ru: 'Из', uk: 'З', es: 'De', de: 'Von',
+    fr: 'De', zh: '从', ja: '入力', pt: 'De', it: 'Da', pl: 'Z',
+  };
+  return m[locale] ?? m.en;
+}
+
+function pickToLabel(locale: string): string {
+  const m: Record<string, string> = {
+    en: 'To', ru: 'В', uk: 'У', es: 'A', de: 'Nach',
+    fr: 'Vers', zh: '到', ja: '出力', pt: 'Para', it: 'A', pl: 'Do',
+  };
+  return m[locale] ?? m.en;
+}
+
 function formatNumber(n: number): string {
   if (!Number.isFinite(n)) return String(n);
   const abs = Math.abs(n);
   if (abs !== 0 && (abs < 1e-4 || abs >= 1e12)) {
     return n.toExponential(6);
   }
-  // Round to remove FP noise; up to 10 significant digits
   return parseFloat(n.toPrecision(10)).toString();
 }
